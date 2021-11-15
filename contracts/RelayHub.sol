@@ -56,6 +56,8 @@ contract RelayHub is IRelayHub {
     }
 
     function registerRelayServer(
+        uint256 baseRelayFee,
+        uint256 pctRelayFee,
         string calldata url
     ) external override {
         //relay manager is msg.sender
@@ -63,7 +65,7 @@ contract RelayHub is IRelayHub {
         requireManagerStaked(msg.sender);
 
         require(workerCount[msg.sender] > 0, "no relay workers");
-        emit RelayServerRegistered(msg.sender, url);
+        emit RelayServerRegistered(msg.sender,  baseRelayFee, pctRelayFee, url);
     }
 
     function disableRelayWorkers(address[] calldata relayWorkers)
@@ -378,6 +380,11 @@ contract RelayHub is IRelayHub {
                 info.withdrawBlock == 0, //isStakeLocked
             "RelayManager not staked"
         );
+    }
+
+    function calculateCharge(uint256 gasUsed, EnvelopingTypes.RelayData calldata relayData) public override virtual view returns (uint256) {
+        //       relayData.baseRelayFee + (gasUsed * relayData.gasPrice * (100 + relayData.pctRelayFee)) / 100;
+        return relayData.baseRelayFee.add((gasUsed.mul(relayData.gasPrice).mul(relayData.pctRelayFee.add(100))).div(100));
     }
 
     function isRelayManagerStaked(address relayManager) external view override returns (bool) {

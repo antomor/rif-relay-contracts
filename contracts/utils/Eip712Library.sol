@@ -45,8 +45,10 @@ library Eip712Library {
 
     function hashRelayData(EnvelopingTypes.RelayData calldata req) internal pure returns (bytes32) {
         return keccak256(abi.encode(
-                keccak256("RelayData(uint256 gasPrice,bytes32 domainSeparator,address relayWorker,address callForwarder,address callVerifier)"), // RELAYDATA_TYPEHASH
+                keccak256("RelayData(uint256 gasPrice,uint256 pctRelayFee,uint256 baseRelayFee,bytes32 domainSeparator,address relayWorker,address callForwarder,address callVerifier)"), // RELAYDATA_TYPEHASH
                 req.gasPrice,
+                req.pctRelayFee,
+                req.baseRelayFee,
                 req.domainSeparator,
                 req.relayWorker,
                 req.callForwarder,
