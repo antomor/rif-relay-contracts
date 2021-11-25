@@ -33,7 +33,8 @@ module.exports = {
             provider: function () {
                 return new HDWalletProvider(
                     mnemonic,
-                    'https://public-node.testnet.rsk.co'
+		    'http://127.0.0.1:4444'
+                    //'https://public-node.testnet.rsk.co'
                 );
             },
             network_id: 31,
