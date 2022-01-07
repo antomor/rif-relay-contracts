@@ -27,9 +27,9 @@ const signWithAddress = async (web3, safeSdk, safeTransaction, owner) => {
     await approveTxResponse.transactionResponse?.wait();
 };
 
-const safeProxyFactoryAddress = '0x73ec81da0C72DD112e06c09A6ec03B5544d26F05';
-const multiSendAddress = '0x5159345aaB821172e795d56274D0f5FDFdC6aBD9';
-const safeMasterCopyAddress = '0x83C5541A6c8D2dBAD642f385d8d06Ca9B6C731ee';
+const safeProxyFactoryAddress = '0x1938517B0762103d52590Ca21d459968c25c9E67';
+const multiSendAddress = '0x89bac3BB0517F7Dc0E5E94265217A9Acc5cc489f';
+const safeMasterCopyAddress = '0xB7a001eE69E7C1eef25Eb8e628e46214Ea74BF0F';
 const contractNetworks = {
     33: {
         multiSendAddress,
