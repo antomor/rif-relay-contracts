@@ -9,6 +9,7 @@ const SmartWalletFactory = artifacts.require('SmartWalletFactory');
 const DeployVerifier = artifacts.require('DeployVerifier');
 const RelayVerifier = artifacts.require('RelayVerifier');
 const TestToken = artifacts.require('TestToken');
+const Collector = artifacts.require('Collector');
 
 // For testing purposes
 const SampleRecipient = artifacts.require('TestRecipient');
@@ -42,6 +43,16 @@ module.exports = async function (deployer, network) {
 
     await deployer.deploy(TestToken);
     await deployer.deploy(SampleRecipient);
+
+    const multisigOwner = '0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826'; // accounts[0]
+    const shares = {
+        'relayOperator':        { 'beneficiary': '0x3BFFdaE0D62b8A745337a85738dC18C0A23F78DB', 'share': 20},  // no balance
+        // 'relayOperator':        { 'beneficiary': '0x7986b3DF570230288501EEa3D890bd66948C9B79', 'share': 20},  // regtest account
+        'walletProvider':       { 'beneficiary': '0x0a3aA774752ec2042c46548456c094A76C7F3a79', 'share': 35}, 
+        'liquidityProvider':    { 'beneficiary': '0xCF7CDBbB5F7BA79d3ffe74A0bBA13FC0295F6036', 'share': 13}, 
+        'iovLabsRecipient':     { 'beneficiary': '0x39B12C05E8503356E3a7DF0B7B33efA4c054C409', 'share': 32}, 
+    };
+    await deployer.deploy(Collector, multisigOwner, shares);
 
     console.log(
         '|===================================|============================================|'
@@ -91,6 +102,7 @@ module.exports = async function (deployer, network) {
         `| SampleRecipient                   | ${SampleRecipient.address} |`
     );
     console.log(`| TestToken                         | ${TestToken.address} |`);
+    console.log(`| Collector                         | ${Collector.address} |`);
     console.log(
         '|===================================|============================================|\n'
     );
