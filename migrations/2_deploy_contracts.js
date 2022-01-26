@@ -44,13 +44,20 @@ module.exports = async function (deployer, network) {
     await deployer.deploy(TestToken);
     await deployer.deploy(SampleRecipient);
 
-    const multisigOwner = '0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826'; // accounts[0]
+    var accounts = await web3.eth.getAccounts();
+    const multisigOwner = accounts[0]; // '0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826'
+    const relayOperator = '0x3BFFdaE0D62b8A745337a85738dC18C0A23F78DB'; // no balance
+    // const relayOperator = accounts[1]; // '0x7986b3DF570230288501EEa3D890bd66948C9B79'
+    const walletProvider = accounts[2]; // '0x0a3aA774752ec2042c46548456c094A76C7F3a79'
+    const liquidityProvider = accounts[3]; // '0xCF7CDBbB5F7BA79d3ffe74A0bBA13FC0295F6036'
+    const iovLabsRecipient = accounts[4]; // '0x39B12C05E8503356E3a7DF0B7B33efA4c054C409'
+
     const shares = {
-        'relayOperator':        { 'beneficiary': '0x3BFFdaE0D62b8A745337a85738dC18C0A23F78DB', 'share': 20},  // no balance
-        // 'relayOperator':        { 'beneficiary': '0x7986b3DF570230288501EEa3D890bd66948C9B79', 'share': 20},  // regtest account
-        'walletProvider':       { 'beneficiary': '0x0a3aA774752ec2042c46548456c094A76C7F3a79', 'share': 35}, 
-        'liquidityProvider':    { 'beneficiary': '0xCF7CDBbB5F7BA79d3ffe74A0bBA13FC0295F6036', 'share': 13}, 
-        'iovLabsRecipient':     { 'beneficiary': '0x39B12C05E8503356E3a7DF0B7B33efA4c054C409', 'share': 32}, 
+        'relayOperator':        { 'beneficiary': relayOperator, 'share': 20},
+        // 'relayOperator':        { 'beneficiary': relayOperator, 'share': 20}, 
+        'walletProvider':       { 'beneficiary': walletProvider, 'share': 35}, 
+        'liquidityProvider':    { 'beneficiary': liquidityProvider, 'share': 13}, 
+        'iovLabsRecipient':     { 'beneficiary': iovLabsRecipient, 'share': 32}, 
     };
     await deployer.deploy(Collector, multisigOwner, shares);
 
