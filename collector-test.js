@@ -42,7 +42,7 @@ module.exports = async (callback) => {
     await web3.eth.sendTransaction({
         from: accounts[0],
         to: collector,
-        value: web3.utils.toWei('1')
+        value: web3.utils.toWei('0.1')
     });
     console.log('After the collector receives some funds...');
     await printBalances(addresses);
