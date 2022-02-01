@@ -49,8 +49,8 @@ module.exports = async (callback) => {
     try {
         const tx = collectorContract.methods.withdraw();
         // console.log(tx);
-        const txReceipt = await successfulTransaction({tx, multisigOwner, collectorContract});
-        // const txReceipt = await failingTransaction({tx, multisigOwner});
+        // const txReceipt = await successfulTransaction({tx, multisigOwner, collectorContract});
+        const txReceipt = await failingTransaction({tx, multisigOwner});
         console.log('txReceipt', txReceipt);
         if (!txReceipt || !txReceipt.status) {
             callback(new Error(`Transaction ${txReceipt.tx} failed`));
