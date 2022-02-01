@@ -53,8 +53,7 @@ module.exports = async function (deployer, network) {
     const iovLabsRecipient = accounts[4]; // '0x39B12C05E8503356E3a7DF0B7B33efA4c054C409'
 
     const shares = {
-        'relayOperator':        { 'beneficiary': relayOperator, 'share': 20},
-        // 'relayOperator':        { 'beneficiary': relayOperator, 'share': 20}, 
+        'relayOperator':        { 'beneficiary': relayOperator, 'share': 20}, 
         'walletProvider':       { 'beneficiary': walletProvider, 'share': 35}, 
         'liquidityProvider':    { 'beneficiary': liquidityProvider, 'share': 13}, 
         'iovLabsRecipient':     { 'beneficiary': iovLabsRecipient, 'share': 32}, 
